@@ -32,6 +32,7 @@ export default class Slider extends Component {
           const margin = this.totalWidth - this.state.squareWidth * 1.025;
           if (gestureState.dx > 0 && gestureState.dx <= margin) {
             this.state.offsetX.setValue(gestureState.dx)
+            this.props.onDraging(gestureState.dx / margin);
           } else if (gestureState.dx > margin) {
             this.onEndReached();
             return;
@@ -94,6 +95,7 @@ Slider.propTypes = {
   sliderElement: PropTypes.element,
   onEndReached: PropTypes.func,
   disableSliding: PropTypes.bool,
+  onDraging: PropTypes.func,
 };
 
 Slider.defaultProps = {
@@ -101,5 +103,6 @@ Slider.defaultProps = {
   containerStyle: {},
   sliderElement: <View style={{ width: 50, height: 50, backgroundColor: 'green' }} />,
   onEndReached: () => {},
-  disableSliding: false
+  disableSliding: false,
+  onDraging: () => {},
 };
