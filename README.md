@@ -24,6 +24,7 @@ Example usage and props! They're self explaining.
   onEndReached={() => {
     Alert.alert('Attention', 'onEndReached!');
   }}
+  onDraging={(percentage) => {}}
   containerStyle={{
     margin: 8,
     backgroundColor: 'white',

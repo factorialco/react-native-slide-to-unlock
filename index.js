@@ -31,6 +31,7 @@ export default class Slider extends Component {
         const margin = this.totalWidth - this.state.squareWidth * 1.025;
         if (gestureState.dx > 0 && gestureState.dx <= margin) {
           this.setState({ offsetX: new Animated.Value(gestureState.dx) });
+          this.props.onDraging(gestureState.dx / margin);
         } else if (gestureState.dx > margin) {
           this.onEndReached();
           return;
@@ -91,6 +92,7 @@ Slider.propTypes = {
   containerStyle: PropTypes.object,
   sliderElement: PropTypes.element,
   onEndReached: PropTypes.func,
+  onDraging: PropTypes.func,
 };
 
 Slider.defaultProps = {
@@ -98,4 +100,5 @@ Slider.defaultProps = {
   containerStyle: {},
   sliderElement: <View style={{ width: 50, height: 50, backgroundColor: 'green' }} />,
   onEndReached: () => {},
+  onDraging: () => {},
 };
