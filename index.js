@@ -28,17 +28,20 @@ export default class Slider extends Component {
         this.canReachEnd = true;
       },
       onPanResponderMove: (evt, gestureState) => {
-        const margin = this.totalWidth - this.state.squareWidth * 1.025;
-        if (gestureState.dx > 0 && gestureState.dx <= margin) {
-          this.setState({ offsetX: new Animated.Value(gestureState.dx) });
-          this.props.onDraging(gestureState.dx / margin);
-        } else if (gestureState.dx > margin) {
-          this.onEndReached();
-          return;
+        if(!this.props.disableSliding) {
+          const margin = this.totalWidth - this.state.squareWidth * 1.025;
+          if (gestureState.dx > 0 && gestureState.dx <= margin) {
+            this.state.offsetX.setValue(gestureState.dx)
+            this.props.onDraging(gestureState.dx / margin);
+          } else if (gestureState.dx > margin) {
+            this.onEndReached();
+            return;
+          }
         }
       },
       onPanResponderTerminationRequest: (evt, gestureState) => true,
       onPanResponderRelease: (evt, gestureState) => {
+        this.props.onDraging(0);
         this.resetBar();
         this.canReachEnd = true;
       },
@@ -53,7 +56,7 @@ export default class Slider extends Component {
   };
 
   resetBar() {
-    Animated.timing(this.state.offsetX, { toValue: 0 }).start();
+    Animated.timing(this.state.offsetX, { toValue: 0, useNativeDriver: true }).start();
   }
 
   render() {
@@ -92,6 +95,7 @@ Slider.propTypes = {
   containerStyle: PropTypes.object,
   sliderElement: PropTypes.element,
   onEndReached: PropTypes.func,
+  disableSliding: PropTypes.bool,
   onDraging: PropTypes.func,
 };
 
@@ -100,5 +104,6 @@ Slider.defaultProps = {
   containerStyle: {},
   sliderElement: <View style={{ width: 50, height: 50, backgroundColor: 'green' }} />,
   onEndReached: () => {},
+  disableSliding: false,
   onDraging: () => {},
 };
