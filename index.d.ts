@@ -6,7 +6,8 @@ declare module 'react-native-slide-to-unlock' {
     containerStyle?: any,
     sliderElement?: ReactNode,
     disableSliding?: boolean,
-    onDraging?: (value: number) => void
+    onDraging?: (value: number) => void,
+    onDragStart?: () => void
   }
 
   export default class SliderButton extends React.Component<ButtonProps, any> { }

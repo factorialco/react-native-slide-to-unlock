@@ -15,6 +15,7 @@ export default class Slider extends Component {
     };
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => {
+        this.onDragStart();
         return true;
       },
       onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
@@ -94,6 +95,7 @@ Slider.propTypes = {
   childrenContainer: PropTypes.object,
   containerStyle: PropTypes.object,
   sliderElement: PropTypes.element,
+  onDragStart: PropTypes.func,
   onEndReached: PropTypes.func,
   disableSliding: PropTypes.bool,
   onDraging: PropTypes.func,
@@ -106,4 +108,5 @@ Slider.defaultProps = {
   onEndReached: () => {},
   disableSliding: false,
   onDraging: () => {},
+  onDragStart: () => {},
 };
