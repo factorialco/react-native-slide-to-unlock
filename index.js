@@ -18,7 +18,7 @@ export default class Slider extends Component {
         return true;
       },
       onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-        this.onDragStart();
+        this.props.onDragStart();
         return true
       },
       onMoveShouldSetPanResponder: (evt, gestureState) => {
