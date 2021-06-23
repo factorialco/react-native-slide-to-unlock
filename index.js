@@ -15,10 +15,12 @@ export default class Slider extends Component {
     };
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => {
-        this.onDragStart();
         return true;
       },
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => {
+        this.onDragStart();
+        return true
+      },
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         return !this.canReachEnd;
       },
